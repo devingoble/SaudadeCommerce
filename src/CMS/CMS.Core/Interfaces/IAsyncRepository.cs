@@ -1,4 +1,6 @@
-﻿using CMS.Core.Entities;
+﻿using Ardalis.Specification;
+
+using CMS.Core.Entities;
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CMS.Core.Interfaces
 {
-    interface IAsyncRepository<T> where T : BaseEntity, IAggregateRoot
+    public interface IAsyncRepository<T> where T : BaseEntity, IAggregateRoot
     {
         Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken = default);

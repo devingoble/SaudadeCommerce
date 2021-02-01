@@ -1,34 +1,28 @@
 ﻿using Ardalis.ApiEndpoints;
 using Ardalis.Result;
-
-using AutoMapper;
-
+using Ardalis.Result.AspNetCore;
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CMS.API.Endpoints.Categories
 {
-    public class List : BaseAsyncEndpoint<Result<ListCategoryResponse>>
+    public class List : BaseAsyncEndpoint<ListCategoryCommand, ListCategoryResponse>
     {
         private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
 
-        public List(IMediator mediator, IMapper mapper)
+        public List(IMediator mediator)
         {
             _mediator = mediator;
-            _mapper = mapper;
         }
 
-        public override Task<ActionResult<Result<ListCategoryResponse>>> HandleAsync(CancellationToken cancellationToken = default)
+        [HttpGet("api/catalog/categories")]
+        public async override Task<ActionResult<ListCategoryResponse>> HandleAsync(ListCategoryCommand request, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var results = await _mediator.Send(request, cancellationToken);
+
+            return this.ToActionResult(results);
         }
     }
 }

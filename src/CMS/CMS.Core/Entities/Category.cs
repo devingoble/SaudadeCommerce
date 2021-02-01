@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMS.Core.Interfaces;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CMS.Core.Entities
 {
-    public class Category : BaseEntity
+    public class Category : BaseEntity, IAggregateRoot
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
